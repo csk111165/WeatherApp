@@ -38,7 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     //----------------------------------------------------------------------
 
     // here the NetworkHelper will use the lat and lon value to fetch the information from api using getData
-    NetworkHelper networkHelper = NetworkHelper(url:'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
+    NetworkHelper networkHelper = NetworkHelper(url:'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric'); // unit=metric for getting temp in celiciup see the api documentation for the openweathermap
 
     var weatherData = await networkHelper.getData();
 

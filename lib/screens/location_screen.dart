@@ -13,13 +13,31 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  
+  double? temperature;
+  int? condition;
+  String? cityName;
+
+  
   @override
   void initState()
   {
-    print("inside the init state of the LocationScreen");
-    print(widget.locationWeather); // widget provides the access of LocationScreen here, so that data can be shared acrss 
+    // print("inside the init state of the LocationScreen");
+    // print(widget.locationWeather); // widget provides the access of LocationScreen here, so that data can be shared acrss 
+    super.initState();
+    updateUI(widget.locationWeather);
   
   }
+
+  void updateUI(dynamic weatherData) {
+    temperature = weatherData['main']['temp'];
+    condition = weatherData['weather'][0]['id'];
+    cityName = weatherData['name'];
+    print(temperature);
+    print(condition);
+    print(cityName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +80,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '$temperature°',
                       style: kTempTextStyle,
                     ),
                     Text(
@@ -75,7 +93,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  "It's 🍦 time in $cityName!",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),

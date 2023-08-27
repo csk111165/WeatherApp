@@ -31,18 +31,20 @@ class _LoadingScreenState extends State<LoadingScreen> {
   
   // method for getting the current location : Future<void> since we are awaiting to get some result
   void getLocationData() async {
+
     // create an object of Location class defined in services/location.dart
+    // it will give the locaiton which contains information about lat and lon
     Location location = Location();
     await location.getCurrentLocation();
     latitude = location.latitude;
     longitude = location.longitude;
+    //----------------------------------------------------------------------
 
+    // here the NetworkHelper will use the lat and lon value to fetch the information from api using getData
     NetworkHelper networkHelper = NetworkHelper(url: 'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
 
     var weatherData = await networkHelper.getData();
 
-    print("what is lat : ${location.latitude}");
-    print("what is longi  ${location.longitude}");
 
   }
 

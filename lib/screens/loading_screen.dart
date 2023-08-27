@@ -38,14 +38,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
     //----------------------------------------------------------------------
 
     // here the NetworkHelper will use the lat and lon value to fetch the information from api using getData
-    NetworkHelper networkHelper = NetworkHelper(
-        url:
-            'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
+    NetworkHelper networkHelper = NetworkHelper(url:'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
 
     var weatherData = await networkHelper.getData();
 
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return LocationScreen();
+      return LocationScreen(locationWeather: weatherData,); // the weatherData be passed to the LocationScreen not _LocationScreenState
     }));
   }
 
@@ -54,7 +52,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Scaffold(
       body: Center(
         child: SpinKitDoubleBounce(
-          color: Colors.red,
+          color: Colors.white,
           size: 100,
         ),
       ),

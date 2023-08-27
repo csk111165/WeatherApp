@@ -2,11 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/utilities/constants.dart';
 
 class LocationScreen extends StatefulWidget {
+
+  // to store the data received from loading screen
+  final locationWeather;
+
+  LocationScreen({ required this.locationWeather});
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  @override
+  void initState()
+  {
+    print("inside the init state of the LocationScreen");
+    print(widget.locationWeather); // widget provides the access of LocationScreen here, so that data can be shared acrss 
+  
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

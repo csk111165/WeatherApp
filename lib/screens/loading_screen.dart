@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/services/location.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -21,15 +22,27 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getData() async {
 
      try {
-    http.Response response = await http.get(Uri.parse('https://www.google.com/'));
+    http.Response response = await http.get(Uri.parse('https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22'));
 
     if (response.statusCode == 200) {
       print("Success");
-      print("body : ${response.body}");
+      String data = response.body;
+
+      var decodedData = jsonDecode(data);
+
+      double temperature = decodedData['main']['temp'];
+      String weatherDesc = decodedData['weather'][0]['description'];
+      int condition = decodedData['weather'][0]['id'];
+      String cityName = decodedData['name'];
+
+
+
     } else {
-      print("Request failed with status: ${response.body}");
+      print('status code: ${response.statusCode}');
+      // print("Request failed with status: ${response.body}");
     }
   } catch (e) {
+   
     print("Error: $e");
   }
   //   if (response.statusCode == 200) {

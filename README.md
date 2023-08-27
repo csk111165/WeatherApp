@@ -20,3 +20,10 @@ A few resources to get you started if this is your first Flutter project:
 
   * Go to flutter\packages\flutter_tools\lib\src\web open file chrome.dart and edit it Add '--disable-web-security' and comment '--disable-extensions' line. 
   * See the stackoverflow link [link](https://stackoverflow.com/questions/60191683/xmlhttprequest-error-in-flutter-web-enabling-cors-aws-api-gateway)
+
+
+
+## Tools
+* Json view pro extension for chorme which allows to maniuplate the json and view it in a very interesting way.
+
+

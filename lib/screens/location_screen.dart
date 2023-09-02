@@ -80,20 +80,26 @@ class _LocationScreenState extends State<LocationScreen> {
                           await WeatherModel().getLocationWeather();
                       updateUI(weatherData);
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       // we want to go to city page
-                      Navigator.push(context,
+                      var typedCityName = await Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return CityScreen();
                       },),);
+                      
+                      // get the typed city name coming from the city_screen TextField after clicking the button get weather
+                      if(typedCityName != null) {
+                        var weatherData = await weather.getCityWeather(typedCityName);
+                        updateUI(weatherData);
+                      }
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.location_city,
                       size: 50.0,
                     ),

@@ -7,6 +7,9 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
+
+String? cityName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +27,11 @@ class _CityScreenState extends State<CityScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: TextButton(
-                  onPressed: () {},
-                  child: Icon(
+                  onPressed: () {
+                    // back button just pops out the current screen
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
                     Icons.arrow_back,
                     size: 50.0,
                   ),
@@ -34,28 +40,21 @@ class _CityScreenState extends State<CityScreen> {
               Container(
                 padding: EdgeInsets.all(20.0),
                 child: TextField(
-                  style: TextStyle(color: Colors.black), // this is for the color of input text
-                  decoration: InputDecoration(
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)), // to provide the rounded border
-                      borderSide: BorderSide.none,
+                  style: const TextStyle(
+                      color:Colors.black,  // this is for the color of input text
                     ),
-                    // hoverColor: Colors.teal,
-                    fillColor: Colors.white,
-                    icon: Icon(Icons.location_city, color: Colors.white,),
-                    hintText: "Enter city name",
-                    hintStyle: TextStyle(
-                        color: Colors.grey
-                    ),
-
-
-                  ),
+                  decoration: kTextFieldInputDecoration,
+                  onChanged: (value) {
+                    // set the cityName to the value user type in the input box
+                    cityName = value;
+                  },
                 ),
               ),
               TextButton(
-                onPressed: () {},
-                child: Text(
+                onPressed: () {
+                  Navigator.pop(context, cityName); // passing the cityName value to the main screen
+                },
+                child: const Text(
                   'Get Weather',
                   style: kButtonTextStyle,
                 ),

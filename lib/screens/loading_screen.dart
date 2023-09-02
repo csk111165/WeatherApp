@@ -24,7 +24,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   // this method is called each time the app is created at very first time
   @override
   void initState() {
-    print("initSTate is called");
     getLocationData();
   }
 

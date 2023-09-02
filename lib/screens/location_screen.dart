@@ -1,64 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/screens/city_screen.dart';
 import 'package:weather_app/utilities/constants.dart';
-import  'package:weather_app/services/weather.dart';
-
+import 'package:weather_app/services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
-
   // to store the data received from loading screen
   final locationWeather;
 
-  LocationScreen({ required this.locationWeather});
+  LocationScreen({required this.locationWeather});
 
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  
-  int temperature = 0 ;
+  int temperature = 0;
   String weatherIcon = '';
   String? cityName;
   String weatherMessage = '';
 
   WeatherModel weather = WeatherModel();
 
-  
   @override
-  void initState()
-  {
+  void initState() {
     // print("inside the init state of the LocationScreen");
-    // print(widget.locationWeather); // widget provides the access of LocationScreen here, so that data can be shared acrss 
+    // print(widget.locationWeather); // widget provides the access of LocationScreen here, so that data can be shared acrss
     super.initState();
     updateUI(widget.locationWeather);
-  
   }
 
   void updateUI(dynamic weatherData) {
-
     // setState since we want to update the values as the weather data gets updated..
     setState(() {
-
       // in case the api returns a null data of weather due to some access issue or weather server down issue
-      if(weatherData ==  null)
-      {
+      if (weatherData == null) {
         temperature = 0;
         weatherIcon = 'Error';
         weatherMessage = "Unable to get the weather condition";
         cityName = 'Unknown';
-        return ; // don't forget to return otherwise it would try to execute the below statments which will cause issue.
+        return; // don't forget to return otherwise it would try to execute the below statments which will cause issue.
       }
-    double temp = weatherData['main']['temp'];
-    temperature  = temp.toInt(); // this is to avoid the floating decimal in temperature.
-    var condition = weatherData['weather'][0]['id']; 
-     // get the icon from condition.
-    weatherIcon = weather.getWeatherIcon(condition);
-    // get weather message
-    weatherMessage = weather.getMessage(temperature);
-    cityName = weatherData['name'];
+      double temp = weatherData['main']['temp'];
+      temperature =
+          temp.toInt(); // this is to avoid the floating decimal in temperature.
+      var condition = weatherData['weather'][0]['id'];
+      // get the icon from condition.
+      weatherIcon = weather.getWeatherIcon(condition);
+      // get weather message
+      weatherMessage = weather.getMessage(temperature);
+      cityName = weatherData['name'];
     });
-   
-  
   }
 
   @override
@@ -85,7 +76,8 @@ class _LocationScreenState extends State<LocationScreen> {
                   TextButton(
                     onPressed: () async {
                       // now when the location button is clicked at top, it will fetch new location
-                      var weatherData = await WeatherModel().getLocationWeather();
+                      var weatherData =
+                          await WeatherModel().getLocationWeather();
                       updateUI(weatherData);
                     },
                     child: Icon(
@@ -94,7 +86,13 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // we want to go to city page
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return CityScreen();
+                      },),);
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,

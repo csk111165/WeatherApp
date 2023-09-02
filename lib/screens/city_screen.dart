@@ -26,7 +26,7 @@ class _CityScreenState extends State<CityScreen> {
                 child: TextButton(
                   onPressed: () {},
                   child: Icon(
-                    Icons.arrow_back_ios,
+                    Icons.arrow_back,
                     size: 50.0,
                   ),
                 ),

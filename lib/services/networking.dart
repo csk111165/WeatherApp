@@ -4,8 +4,6 @@ import 'dart:convert';
 class NetworkHelper {
   final String url;
 
-  // )
-
   NetworkHelper({required this.url});
 
   // return Future since the result of get is not available on the fly

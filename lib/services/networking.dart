@@ -11,12 +11,10 @@ class NetworkHelper {
     http.Response response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
-      print("Success");
       String data = response.body;
       return jsonDecode(data);
     
     } else {
-      print('status code: ${response.statusCode}');
       // print("Request failed with status: ${response.body}");
       print(response.body);
     }

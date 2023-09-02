@@ -38,6 +38,16 @@ class _LocationScreenState extends State<LocationScreen> {
 
     // setState since we want to update the values as the weather data gets updated..
     setState(() {
+
+      // in case the api returns a null data of weather due to some access issue or weather server down issue
+      if(weatherData ==  null)
+      {
+        temperature = 0;
+        weatherIcon = 'Error';
+        weatherMessage = "Unable to get the weather condition";
+        cityName = 'Unknown';
+        return ; // don't forget to return otherwise it would try to execute the below statments which will cause issue.
+      }
     double temp = weatherData['main']['temp'];
     temperature  = temp.toInt(); // this is to avoid the floating decimal in temperature.
     var condition = weatherData['weather'][0]['id']; 
